@@ -10,12 +10,13 @@ class UsersRepository implements IUsersRepository {
     return allUsers
   }
   public async create(payload: ICreateUserDTO): Promise<IReturnUserDTO> {
-    const { name, email, password } = payload
+    const { name, email, password, role } = payload
 
     const createAnUser = await User.create({
       name,
       email,
       password,
+      role,
     })
 
     return createAnUser

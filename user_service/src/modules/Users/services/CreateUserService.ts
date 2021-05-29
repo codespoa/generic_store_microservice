@@ -28,8 +28,6 @@ export class CreateUserService implements Service {
       role,
     })
 
-    if (!createAnUser) throw new AppError('Error in create an user', 500)
-
     return createAnUser
   }
 }

@@ -11,7 +11,6 @@ interface RequestDTO {
 }
 
 interface ResponseUser {
-  user: Object
   token: string
 }
 export class AuthenticateUserService implements Service {
@@ -35,11 +34,15 @@ export class AuthenticateUserService implements Service {
     }
 
     const { secret, expiresIn } = configAuth.jwt
+    const subject = Object.assign(
+      {},
+      { user_id: user._id },
+      { user_role: user.role }
+    )
 
-    const token = sign({ subject: user._id, expire: expiresIn }, secret)
+    const token = sign({ subject, expire: expiresIn }, secret)
 
     return {
-      user,
       token,
     }
   }
