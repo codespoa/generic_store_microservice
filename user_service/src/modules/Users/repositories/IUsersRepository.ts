@@ -4,5 +4,6 @@ import IReturnUserDTO from '@modules/Users/dtos/IReturnUserDTO'
 export default interface IUsersRepository {
   getAllUsers(): Promise<IReturnUserDTO[]> | undefined
   findByEmail(email: string): Promise<IReturnUserDTO | undefined>
+  findById(id: string): Promise<IReturnUserDTO | undefined>
   create(data: IcreateUser): Promise<IReturnUserDTO>
 }
