@@ -1,8 +1,9 @@
-import { Request, Response } from 'express'
+import { Request, response, Response } from 'express'
 
 import {
   CreateUserService,
   ReturnAllUserService,
+  ShowUserService,
 } from '@modules/Users/services'
 import UsersRepository from '@modules/Users/infra/mongoose/repositories/UsersRepository'
 import { Controller } from '@shared/protocols'
@@ -26,13 +27,20 @@ export default class UsersController implements Controller {
     return response.json(createAnUser)
   }
 
-  show(request: Request, response: Response): Promise<Response> {
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+
+    const userRepository = new UsersRepository()
+    const showUser = await new ShowUserService(userRepository).execute({
+      id,
+    })
+
+    return response.status(200).json(showUser)
+  }
+  public async delete(request: Request, response: Response): Promise<Response> {
     return new Promise((resolve) => resolve(null))
   }
-  delete(request: Request, response: Response): Promise<Response> {
-    return new Promise((resolve) => resolve(null))
-  }
-  update(request: Request, response: Response): Promise<Response> {
+  public async update(request: Request, response: Response): Promise<Response> {
     return new Promise((resolve) => resolve(null))
   }
 }
