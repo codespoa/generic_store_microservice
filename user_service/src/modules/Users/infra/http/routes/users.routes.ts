@@ -11,6 +11,7 @@ import UsersController from '../controllers/UsersController'
 const usersController = new UsersController()
 
 usersRouter.get('/', ensureAuthenticad, usersController.index)
+usersRouter.get('/:id', ensureAuthenticad, usersController.show)
 usersRouter.post('/', Validate(userValidator.create), usersController.store)
 
 export default usersRouter
