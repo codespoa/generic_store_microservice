@@ -15,7 +15,7 @@ describe('CreateProduct', () => {
       seller: 'any_seller',
       store: 'any_store',
       product_code: 'any_product_code',
-      token: tokenExample.token_example,
+      token: tokenExample.token_example_success,
     })
 
     expect(product).toBeTruthy()
@@ -38,7 +38,7 @@ describe('CreateProduct', () => {
       seller: 'any_seller',
       store: 'any_store',
       product_code: 'any_product_code',
-      token: tokenExample.token_example,
+      token: tokenExample.token_example_success,
     })
 
     expect(
@@ -49,7 +49,7 @@ describe('CreateProduct', () => {
         seller: 'any_seller',
         store: 'any_store',
         product_code: 'any_product_code',
-        token: tokenExample.token_example,
+        token: tokenExample.token_example_success,
       })
     ).rejects.toBeInstanceOf(AppError)
 
@@ -67,7 +67,7 @@ describe('CreateProduct', () => {
       seller: 'any_seller',
       store: 'any_store',
       product_code: 'any_product_code',
-      token: tokenExample.token_example,
+      token: tokenExample.token_example_success,
     })
 
     const promise = jest
@@ -90,7 +90,7 @@ describe('CreateProduct', () => {
         seller: 'any_seller',
         store: 'any_store',
         product_code: 'any_product_code',
-        token: 'any_office',
+        token: tokenExample.token_example_fail,
       })
     ).rejects.toBeInstanceOf(AppError)
   })
@@ -108,6 +108,6 @@ describe('CreateProduct', () => {
       product_code: 'any_product_code',
     })
 
-    expect(create).rejects.toBeFalsy()
+    expect(create).rejects.toBeInstanceOf(AppError)
   })
 })
