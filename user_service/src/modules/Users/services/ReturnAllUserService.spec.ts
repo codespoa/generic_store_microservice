@@ -10,12 +10,14 @@ describe('Return All Users', () => {
       name: 'John',
       email: 'jonh@example.com',
       password: '123456',
+      role: 'any_role',
     })
 
     await createUser.execute({
       name: 'Doe',
       email: 'doe@example.com',
       password: '123456',
+      role: 'any_role',
     })
 
     const returnAllUser = new ReturnAllUserService(fakeUsersRepository)

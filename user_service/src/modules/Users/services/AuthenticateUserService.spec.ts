@@ -13,6 +13,7 @@ describe('AuthenticateUser', () => {
       name: 'John Doe',
       email: 'jonh@example.com',
       password: '123456',
+      role: 'any_role',
     })
 
     const response = await authenticateUser.execute({
@@ -32,6 +33,7 @@ describe('AuthenticateUser', () => {
       name: 'John Doe',
       email: 'doe_john@example.com',
       password: '654321',
+      role: 'any_role',
     })
 
     expect(
@@ -51,6 +53,7 @@ describe('AuthenticateUser', () => {
       name: 'John Doe',
       email: 'jonh@example.com',
       password: '654321',
+      role: 'any_role',
     })
 
     expect(
@@ -70,6 +73,7 @@ describe('AuthenticateUser', () => {
       name: 'John Doe',
       email: 'doe@example.com',
       password: '654321',
+      role: 'any_role',
     })
 
     expect(

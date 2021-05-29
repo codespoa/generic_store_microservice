@@ -13,6 +13,7 @@ describe('CreateUser', () => {
       name: 'John Doe',
       email: 'jonh@example.com',
       password: '123456',
+      role: 'any_role',
     })
 
     expect(user).toHaveProperty('id')
@@ -26,6 +27,7 @@ describe('CreateUser', () => {
       name: 'John Doe',
       email: 'jonh@example.com',
       password: '123456',
+      role: 'any_role',
     })
 
     expect(
@@ -33,6 +35,7 @@ describe('CreateUser', () => {
         name: 'John Doe',
         email: 'jonh@example.com',
         password: '123456',
+        role: 'any_role',
       })
     ).rejects.toBeInstanceOf(AppError)
 
