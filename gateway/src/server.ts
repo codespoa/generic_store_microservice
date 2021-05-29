@@ -33,7 +33,7 @@ import { jsonConfig } from './config/server.config';
     });
 
     services.forEach(({ nameRoute, url }) => {
-      app.all(`/${nameRoute}`, httpProxy(url, { timeout: 3000 }));
+      app.use(`/${nameRoute}`, httpProxy(url, { timeout: 3000 }));
     });
 
     app.listen(config.port, () => {
