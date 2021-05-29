@@ -5,12 +5,15 @@ import ProductRepository from '@modules/Product/infra/mongoose/repositories/Prod
 import { Controller } from '@shared/protocols'
 
 export default class ProductController implements Controller {
-  public async index(request: Request, response: Response): Promise<Response> {
+  public async index(request: Request, response: Response): Promise<any> {
     return new Promise((resolve) => resolve(null))
   }
 
   public async store(request: Request, response: Response): Promise<Response> {
     const payload = request.body
+    const { authorization } = request.headers
+
+    payload.token = authorization
 
     const productRepository = new ProductRepository()
     const createAProduct = await new CreateProductService(
