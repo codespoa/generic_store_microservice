@@ -18,10 +18,6 @@ export class CreateProductService implements Service {
     product_code,
     token,
   }: ICreateProductDTO): Promise<IReturnProductDTO> {
-    const checkProductExists = await this.productRepository.findByCode(
-      product_code
-    )
-
     if (!token)
       throw new AppError(
         "You don't have permission to access this feature",
@@ -40,6 +36,10 @@ export class CreateProductService implements Service {
         "You don't have permission to access this feature",
         403
       )
+
+    const checkProductExists = await this.productRepository.findByCode(
+      product_code
+    )
 
     if (checkProductExists)
       throw new AppError('This product is already exists', 409)
