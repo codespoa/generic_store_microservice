@@ -1,0 +1,16 @@
+nameApplication: API Gateway
+hostApplication: http://localhost
+
+config:
+  port: 5000
+  enabledMorgan: true
+
+security:
+  enabledJSON: true
+  enabledHelmet: true
+
+services:
+  - nameRoute: users
+    url: http://127.0.0.1:4000/user
+  - nameRoute: products
+    url: http://localhost:3000/product
