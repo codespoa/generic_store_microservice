@@ -18,19 +18,18 @@ export class CreateProductService implements Service {
     product_code,
     token,
   }: ICreateProductDTO): Promise<IReturnProductDTO> {
-    const [, auth] = token.split(' ')
-
     const checkProductExists = await this.productRepository.findByCode(
       product_code
     )
 
-    const decoder = new JwtDecode()
-
-    if (!auth)
+    if (!token)
       throw new AppError(
         "You don't have permission to access this feature",
         403
       )
+    const [, auth] = token.split(' ')
+
+    const decoder = new JwtDecode()
 
     const {
       subject: { user_role },
@@ -53,8 +52,6 @@ export class CreateProductService implements Service {
       store,
       product_code,
     })
-
-    if (!createProduct) throw new AppError('Error in create a product', 500)
 
     return createProduct
   }
