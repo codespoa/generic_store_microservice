@@ -6,4 +6,5 @@ export default interface IReturnProductDTO {
   seller: string
   store: string
   product_code: string
+  token?: string
 }

@@ -5,4 +5,5 @@ export default interface ICreateProductDTO {
   seller: string
   store: string
   product_code: string
+  token?: string
 }
