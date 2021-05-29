@@ -1,6 +1,7 @@
 import { AppError } from '@shared/error'
 import FakesProductRepository from '@modules/Product/repositories/fakes/FakesProductRepository'
 import { CreateProductService } from '.'
+import tokenExample from '@config/token'
 
 describe('CreateProduct', () => {
   it('should be able to create a new product', async () => {
@@ -14,6 +15,7 @@ describe('CreateProduct', () => {
       seller: 'any_seller',
       store: 'any_store',
       product_code: 'any_product_code',
+      token: tokenExample.token_example,
     })
 
     expect(product).toBeTruthy()
@@ -36,6 +38,7 @@ describe('CreateProduct', () => {
       seller: 'any_seller',
       store: 'any_store',
       product_code: 'any_product_code',
+      token: tokenExample.token_example,
     })
 
     expect(
@@ -46,6 +49,7 @@ describe('CreateProduct', () => {
         seller: 'any_seller',
         store: 'any_store',
         product_code: 'any_product_code',
+        token: tokenExample.token_example,
       })
     ).rejects.toBeInstanceOf(AppError)
 
@@ -63,15 +67,47 @@ describe('CreateProduct', () => {
       seller: 'any_seller',
       store: 'any_store',
       product_code: 'any_product_code',
+      token: tokenExample.token_example,
     })
 
     const promise = jest
       .spyOn(createProduct, 'execute')
       .mockReturnValueOnce(
-        new Promise((resolve, reject) =>
-          reject(new AppError('Error in create a product', 500))
-        )
+        new Promise((resolve, reject) => reject(new AppError('Error', 500)))
       )
     await expect(promise).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('should verify if role is not gerente', async () => {
+    const fakeProductRepository = new FakesProductRepository()
+    const createProduct = new CreateProductService(fakeProductRepository)
+
+    expect(
+      createProduct.execute({
+        name: 'any_name',
+        value: 1000,
+        weight: 100,
+        seller: 'any_seller',
+        store: 'any_store',
+        product_code: 'any_product_code',
+        token: 'any_office',
+      })
+    ).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('should verify if role is not provider', async () => {
+    const fakeProductRepository = new FakesProductRepository()
+    const createProduct = new CreateProductService(fakeProductRepository)
+
+    const create = createProduct.execute({
+      name: 'any_name',
+      value: 1000,
+      weight: 100,
+      seller: 'any_seller',
+      store: 'any_store',
+      product_code: 'any_product_code',
+    })
+
+    expect(create).rejects.toBeFalsy()
   })
 })
