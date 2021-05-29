@@ -3,5 +3,5 @@ export default interface IReturnUserDTO {
   name: string
   email: string
   password: string
-  rented_books: []
+  role: string
 }

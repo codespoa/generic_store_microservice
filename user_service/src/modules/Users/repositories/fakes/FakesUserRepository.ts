@@ -8,7 +8,7 @@ export interface IUserInterface {
   name: string
   email: string
   password: string
-  rented_books: []
+  role: string
 }
 
 class UsersRepository implements IUsersRepository {

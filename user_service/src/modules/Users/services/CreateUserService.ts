@@ -12,6 +12,7 @@ export class CreateUserService implements Service {
     email,
     name,
     password,
+    role,
   }: ICreateUserDTO): Promise<IReturnUserDTO> {
     const checkUserExists = await this.usersRepository.findByEmail(email)
 
@@ -24,6 +25,7 @@ export class CreateUserService implements Service {
       name,
       email,
       password: passwordHashed,
+      role,
     })
 
     if (!createAnUser) throw new AppError('Error in create an user', 500)
