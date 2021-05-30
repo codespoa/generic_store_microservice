@@ -18,7 +18,7 @@ export class CreateProductService implements Service {
     product_code,
     token,
   }: ICreateProductDTO): Promise<IReturnProductDTO> {
-    if (!token)
+    if (!token || token === 'Bearer')
       throw new AppError(
         "You don't have permission to access this feature",
         403
