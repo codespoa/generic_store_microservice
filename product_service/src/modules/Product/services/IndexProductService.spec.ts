@@ -17,8 +17,13 @@ describe('Index Product', () => {
       token: tokenExample.token_example_success,
     })
 
+    const payload = {
+      limit: 10,
+      page: 1,
+    }
+
     const indexProduct = new IndexProductService(fakeProductRepository)
-    const index = await indexProduct.execute()
+    const index = await indexProduct.execute(payload)
 
     expect(index).toBeTruthy()
   })
