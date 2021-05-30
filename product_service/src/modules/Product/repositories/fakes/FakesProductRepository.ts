@@ -3,6 +3,7 @@ import IProductRepository from '@modules/Product/repositories/IProductRepository
 import IReturnProductDTO from '@modules/Product/dtos/IReturnProductDTO'
 import ICreateProductDTO from '@modules/Product/dtos/ICreateProductDTO'
 import Product from '@modules/Product/infra/mongoose/entities/Product'
+import IUpdateProductDTO from '@modules/Product/dtos/IUpdateProductDTO'
 
 export interface IProductInterface {
   _id: string
@@ -31,8 +32,14 @@ class FakesProductRepository implements IProductRepository {
     code: string
   ): Promise<IReturnProductDTO | undefined> {
     const findProduct = this.products.find(
-      (_code) => _code.product_code === code
+      (product) => product.product_code === code
     )
+
+    return findProduct
+  }
+
+  public async findById(id: string): Promise<IReturnProductDTO | undefined> {
+    const findProduct = this.products.find((product) => product._id === id)
 
     return findProduct
   }
@@ -47,12 +54,13 @@ class FakesProductRepository implements IProductRepository {
     return product
   }
 
-  public async save(product: IProductInterface): Promise<IReturnProductDTO> {
+  public async update(id: string, product: IUpdateProductDTO): Promise<any> {
     const findIndex = this.products.findIndex(
-      (findProduct) => findProduct._id === product._id
+      (findProduct) => findProduct._id === id
     )
 
-    this.products[findIndex] = product
+    this.products[findIndex]._id = id
+    this.products[findIndex].product_code = id
 
     return product
   }

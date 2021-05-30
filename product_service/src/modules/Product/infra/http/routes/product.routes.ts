@@ -12,8 +12,15 @@ const productController = new ProductController()
 productRouter.get('/', ensureAuthenticad, productController.index)
 productRouter.post(
   '/',
+  ensureAuthenticad,
   Validate(productValidator.create),
   productController.store
+)
+productRouter.put(
+  '/:id',
+  ensureAuthenticad,
+  Validate(productValidator.create),
+  productController.update
 )
 
 export default productRouter
