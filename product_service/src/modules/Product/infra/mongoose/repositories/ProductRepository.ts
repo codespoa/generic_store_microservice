@@ -4,8 +4,8 @@ import ICreateProductDTO from '@modules/Product/dtos/ICreateProductDTO'
 import IReturnProductDTO from '@modules/Product/dtos/IReturnProductDTO'
 
 class ProductRepository implements IProductRepository {
-  public async getAll(): Promise<IReturnProductDTO[]> | undefined {
-    const allProducts = await Product.find({})
+  public async getAll(): Promise<any | undefined> {
+    const allProducts = await Product.paginate()
 
     return allProducts
   }

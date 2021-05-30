@@ -4,7 +4,6 @@ import ICreateProductDTO from '@modules/Product/dtos/ICreateProductDTO'
 import IReturnProductDTO from '@modules/Product/dtos/IReturnProductDTO'
 import Service from '@shared/protocols/Service'
 import JwtDecode from '@shared/utils/JwtDecode'
-import tokenExample from '@config/token'
 
 export class CreateProductService implements Service {
   constructor(private readonly productRepository: IProductRepository) {}

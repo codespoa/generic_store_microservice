@@ -1,12 +1,20 @@
 import { Request, Response } from 'express'
 
-import { CreateProductService } from '@modules/Product/services'
+import {
+  CreateProductService,
+  IndexProductService,
+} from '@modules/Product/services'
 import ProductRepository from '@modules/Product/infra/mongoose/repositories/ProductRepository'
 import { Controller } from '@shared/protocols'
 
 export default class ProductController implements Controller {
   public async index(request: Request, response: Response): Promise<any> {
-    return new Promise((resolve) => resolve(null))
+    const productRepository = new ProductRepository()
+    const showManyProducts = await new IndexProductService(
+      productRepository
+    ).execute()
+
+    return response.status(200).json(showManyProducts)
   }
 
   public async store(request: Request, response: Response): Promise<Response> {
