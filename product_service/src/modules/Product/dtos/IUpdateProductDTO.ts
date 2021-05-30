@@ -1,4 +1,4 @@
-export default interface IUpdateProductDTO {
+export type IUpdateProductDTO = {
   id?: string
   name: string
   value: number

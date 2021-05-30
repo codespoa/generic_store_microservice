@@ -1,4 +1,4 @@
-export default interface IReturnUpdateProductDTO {
+export type IReturnUpdateProductDTO = {
   _id: string
   name: string
   value: Number

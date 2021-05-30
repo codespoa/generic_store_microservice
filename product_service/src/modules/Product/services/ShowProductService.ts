@@ -1,18 +1,20 @@
 import { AppError } from '@shared/error'
 import IProductRepository from '@modules/Product/repositories/IProductRepository'
-import {
-  IUpdateProductDTO,
-  IReturnUpdateProductDTO,
-} from '@modules/Product/dtos'
+import { IReturnProductDTO } from '@modules/Product/dtos'
 import Service from '@shared/protocols/Service'
 import JwtDecode from '@shared/utils/JwtDecode'
 
-export class UpdateProductService implements Service {
+export class ShowProductService implements Service {
   constructor(private readonly productRepository: IProductRepository) {}
 
   public async execute(
-    payload: IUpdateProductDTO
-  ): Promise<IReturnUpdateProductDTO> {
+    payload: any
+  ): Promise<IReturnProductDTO[] | IReturnProductDTO | undefined> {
+    if (!payload.token || payload.token === 'Bearer')
+      throw new AppError(
+        "You don't have permission to access this feature",
+        403
+      )
     const [, auth] = payload.token.split(' ')
 
     const decoder = new JwtDecode()
@@ -27,12 +29,14 @@ export class UpdateProductService implements Service {
         403
       )
 
-    const checkProductExists = await this.productRepository.findById(payload.id)
+    const checkProductExists = await this.productRepository.findByCode(
+      payload.code
+    )
 
     if (!checkProductExists) throw new AppError('Product not found', 404)
 
-    const createProduct = this.productRepository.update(payload.id, payload)
+    const products = await this.productRepository.getAllByCode(payload)
 
-    return createProduct
+    return products
   }
 }

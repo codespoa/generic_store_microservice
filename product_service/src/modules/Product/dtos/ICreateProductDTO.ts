@@ -1,4 +1,4 @@
-export default interface ICreateProductDTO {
+export type ICreateProductDTO = {
   name: string
   value: number
   weight: number

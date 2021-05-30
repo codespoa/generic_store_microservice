@@ -1,10 +1,12 @@
-import ICreateProductDTO from '@modules/Product/dtos/ICreateProductDTO'
-import IReturnProductDTO from '@modules/Product/dtos/IReturnProductDTO'
-import IUpdateProductDTO from '@modules/Product/dtos/IUpdateProductDTO'
-import IReturnUpdateProductDTO from '@modules/Product/dtos/IReturnUpdateProductDTO'
+import {
+  ICreateProductDTO,
+  IReturnProductDTO,
+  IUpdateProductDTO,
+  IReturnUpdateProductDTO,
+} from '@modules/Product/dtos'
 
 export default interface IProductRepository {
-  getAll(): Promise<IReturnProductDTO[]> | undefined
+  getAll(payload: any): Promise<IReturnProductDTO[]> | undefined
   findByCode(code: string): Promise<IReturnProductDTO | undefined>
   findById(id: string): Promise<IReturnProductDTO | undefined>
   update(
@@ -19,4 +21,7 @@ export default interface IProductRepository {
     store,
     product_code,
   }: ICreateProductDTO): Promise<IReturnProductDTO>
+  getAllByCode(
+    code: string
+  ): Promise<IReturnProductDTO[] | IReturnProductDTO> | undefined
 }

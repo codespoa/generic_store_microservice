@@ -1,7 +1,6 @@
 import { AppError } from '@shared/error'
 import IProductRepository from '@modules/Product/repositories/IProductRepository'
-import ICreateProductDTO from '@modules/Product/dtos/ICreateProductDTO'
-import IReturnProductDTO from '@modules/Product/dtos/IReturnProductDTO'
+import { ICreateProductDTO, IReturnProductDTO } from '@modules/Product/dtos'
 import Service from '@shared/protocols/Service'
 import JwtDecode from '@shared/utils/JwtDecode'
 

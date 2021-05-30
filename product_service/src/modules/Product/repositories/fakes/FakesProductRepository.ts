@@ -1,9 +1,11 @@
 import { v4 as uuid } from 'uuid'
 import IProductRepository from '@modules/Product/repositories/IProductRepository'
-import IReturnProductDTO from '@modules/Product/dtos/IReturnProductDTO'
-import ICreateProductDTO from '@modules/Product/dtos/ICreateProductDTO'
+import {
+  IReturnProductDTO,
+  ICreateProductDTO,
+  IUpdateProductDTO,
+} from '@modules/Product/dtos'
 import Product from '@modules/Product/infra/mongoose/entities/Product'
-import IUpdateProductDTO from '@modules/Product/dtos/IUpdateProductDTO'
 
 export interface IProductInterface {
   _id: string
@@ -18,7 +20,7 @@ export interface IProductInterface {
 class FakesProductRepository implements IProductRepository {
   private products: IProductInterface[] = []
 
-  public async getAll(): Promise<IReturnProductDTO[] | undefined> {
+  public async getAll(payload: any): Promise<IReturnProductDTO[] | undefined> {
     const product = new Product()
 
     Object.assign(product, { _id: uuid() })
@@ -63,6 +65,16 @@ class FakesProductRepository implements IProductRepository {
     this.products[findIndex].product_code = id
 
     return product
+  }
+
+  public async getAllByCode(
+    code: string
+  ): Promise<IReturnProductDTO[] | IReturnProductDTO> | undefined {
+    const findProduct = this.products.filter(
+      (product) => product.product_code === code
+    )
+
+    return findProduct
   }
 }
 

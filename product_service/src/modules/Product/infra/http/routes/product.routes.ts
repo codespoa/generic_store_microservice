@@ -10,6 +10,7 @@ import ProductController from '../controllers/ProductController'
 const productController = new ProductController()
 
 productRouter.get('/', ensureAuthenticad, productController.index)
+productRouter.get('/search', ensureAuthenticad, productController.show)
 productRouter.post(
   '/',
   ensureAuthenticad,

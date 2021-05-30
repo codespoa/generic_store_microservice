@@ -1,14 +1,18 @@
 import Product from '@modules/Product/infra/mongoose/entities/Product'
 import IProductRepository from '@modules/Product/repositories/IProductRepository'
-import ICreateProductDTO from '@modules/Product/dtos/ICreateProductDTO'
-import IReturnProductDTO from '@modules/Product/dtos/IReturnProductDTO'
-import IUpdateProductDTO from '@modules/Product/dtos/IUpdateProductDTO'
-
-import IReturnUpdateProductDTO from '@modules/Product/dtos/IReturnUpdateProductDTO'
+import {
+  ICreateProductDTO,
+  IReturnProductDTO,
+  IUpdateProductDTO,
+  IReturnUpdateProductDTO,
+} from '@modules/Product/dtos'
 
 class ProductRepository implements IProductRepository {
-  public async getAll(): Promise<any | undefined> {
-    const allProducts = await Product.paginate()
+  public async getAll(payload: any): Promise<any | undefined> {
+    const allProducts = await Product.paginate(
+      {},
+      { limit: payload.limit, page: payload.page }
+    )
 
     return allProducts
   }
@@ -49,6 +53,13 @@ class ProductRepository implements IProductRepository {
     })
 
     return updateProduct
+  }
+
+  public async getAllByCode(payload: any): Promise<any> | undefined {
+    return await Product.paginate(
+      { product_code: payload.code },
+      { limit: 15, page: payload.page }
+    )
   }
 }
 

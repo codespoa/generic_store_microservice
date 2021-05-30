@@ -1,0 +1,5 @@
+export * from './ICreateProductDTO'
+export * from './IReturnProductDTO'
+export * from './IReturnUpdateProductDTO'
+export * from './IShowProductDTO'
+export * from './IUpdateProductDTO'
