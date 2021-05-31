@@ -4,7 +4,7 @@ import { CreateProductService, ShowProductService } from '.'
 import tokenExample from '@config/token'
 
 describe('Show Product', () => {
-  it('should be able to find a product', async () => {
+  it('should be able to return a product', async () => {
     const fakeProductRepository = new FakesProductRepository()
     const createProduct = new CreateProductService(fakeProductRepository)
     const showProduct = new ShowProductService(fakeProductRepository)
@@ -21,8 +21,7 @@ describe('Show Product', () => {
 
     const payload = {
       token: tokenExample.token_example_success,
-      code: create.product_code,
-      page: '1',
+      id: create._id,
     }
 
     const show = await showProduct.execute(payload)
@@ -47,8 +46,7 @@ describe('Show Product', () => {
 
     const payload = {
       token: tokenExample.token_example_success,
-      code: 'wrong_code',
-      page: '1',
+      id: 'wrong_id',
     }
 
     const show = showProduct.execute(payload)
@@ -58,12 +56,12 @@ describe('Show Product', () => {
     return createProduct
   })
 
-  it('should verify if role is not gerente', async () => {
+  it('should verify if role is not gerente or client', async () => {
     const fakeProductRepository = new FakesProductRepository()
     const createProduct = new CreateProductService(fakeProductRepository)
     const showProduct = new ShowProductService(fakeProductRepository)
 
-    await createProduct.execute({
+    const create = await createProduct.execute({
       name: 'any_name',
       value: 1000,
       weight: 100,
@@ -75,13 +73,15 @@ describe('Show Product', () => {
 
     const payload = {
       token: tokenExample.token_example_fail,
-      code: 'wrong_code',
-      page: '1',
+      id: create._id,
     }
 
     const update = showProduct.execute(payload)
 
-    expect(update).rejects.toBeInstanceOf(AppError)
+    expect(update).rejects.toEqual({
+      errorCode: 403,
+      errorMessage: "You don't have permission to access this feature",
+    })
   })
 
   it('should verify if role is not provider', async () => {
@@ -89,7 +89,7 @@ describe('Show Product', () => {
     const createProduct = new CreateProductService(fakeProductRepository)
     const showProduct = new ShowProductService(fakeProductRepository)
 
-    await createProduct.execute({
+    const create = await createProduct.execute({
       name: 'any_name',
       value: 1000,
       weight: 100,
@@ -100,8 +100,7 @@ describe('Show Product', () => {
     })
 
     const payload = {
-      code: 'wrong_code',
-      page: '1',
+      id: create._id,
     }
 
     const update = showProduct.execute(payload)
