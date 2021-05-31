@@ -9,6 +9,7 @@ export default interface IProductRepository {
   getAll(payload: any): Promise<IReturnProductDTO[]> | undefined
   findByCode(code: string): Promise<IReturnProductDTO | undefined>
   findById(id: string): Promise<IReturnProductDTO | undefined>
+  findProduct(payload: any): Promise<any>
   delete(id: string): Promise<void>
   update(
     id: string,
