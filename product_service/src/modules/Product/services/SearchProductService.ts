@@ -32,14 +32,12 @@ export class SearchProductService implements Service {
         403
       )
 
-    const checkProductExists = await this.productRepository.findByCode(
-      payload.code
-    )
+    const checkProductExists = await this.productRepository.findProduct(payload)
+
+    return checkProductExists
 
     if (!checkProductExists) throw new AppError('Product not found', 404)
 
-    const products = await this.productRepository.getAllByCode(payload)
-
-    return products
+    return checkProductExists
   }
 }
