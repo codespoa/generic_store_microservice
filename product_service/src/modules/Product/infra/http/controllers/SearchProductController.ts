@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { ShowProductService } from '@modules/Product/services'
+import { SearchProductService } from '@modules/Product/services'
 import ProductRepository from '@modules/Product/infra/mongoose/repositories/ProductRepository'
 
 export class SearchProductController {
@@ -16,7 +16,7 @@ export class SearchProductController {
     }
 
     const productRepository = new ProductRepository()
-    const searchProduct = await new ShowProductService(
+    const searchProduct = await new SearchProductService(
       productRepository
     ).execute(payload)
 
