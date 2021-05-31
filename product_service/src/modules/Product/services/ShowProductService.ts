@@ -24,22 +24,18 @@ export class ShowProductService implements Service {
     } = decoder.decode(auth)
 
     const roleCheck = new RoleCheck()
-    const checkRole = roleCheck.verify(user_role, ['gerente'])
+    const checkRole = roleCheck.verify(user_role, ['gerente', 'cliente'])
 
     if (!checkRole)
       throw new AppError(
-        "You don't have permission to access this feature",
+        "You don't have permission to access this features",
         403
       )
 
-    const checkProductExists = await this.productRepository.findByCode(
-      payload.code
-    )
+    const checkProductExists = await this.productRepository.findById(payload.id)
 
     if (!checkProductExists) throw new AppError('Product not found', 404)
 
-    const products = await this.productRepository.getAllByCode(payload)
-
-    return products
+    return checkProductExists
   }
 }
