@@ -57,12 +57,11 @@ export class ProductController implements Controller {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { code, page } = request.query
+    const { id } = request.params
     const { authorization } = request.headers
     const payload = {
       token: authorization,
-      code,
-      page,
+      id,
     }
 
     const productRepository = new ProductRepository()
