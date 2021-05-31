@@ -27,7 +27,6 @@ export default function ensureAuthenticad(
     const decoded = verify(token, configAuth.jwt.secret)
 
     const { sub } = decoded as TokenPayload
-    console.log(request)
 
     request.user = {
       id: sub,
