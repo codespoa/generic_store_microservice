@@ -72,7 +72,17 @@ export default class ProductController implements Controller {
     return response.status(200).json(showAProduct)
   }
 
-  delete(request: Request, response: Response): Promise<Response> {
-    return new Promise((resolve) => resolve(null))
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+    const { authorization } = request.headers
+    const payload = {
+      token: authorization,
+      id,
+    }
+
+    const productRepository = new ProductRepository()
+    const t = await new DeleteProductService(productRepository).execute(payload)
+
+    return response.status(200).json(t)
   }
 }
