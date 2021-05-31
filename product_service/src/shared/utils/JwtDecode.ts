@@ -1,7 +1,7 @@
 import { Decoder, ReturnDecode } from '@shared/adapter'
 import jwt_decode from 'jwt-decode'
 
-export default class JwtDecode implements Decoder {
+export class JwtDecode implements Decoder {
   decode(token: string): ReturnDecode {
     if (token) {
       const tokenDecoded = jwt_decode(token)
