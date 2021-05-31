@@ -10,6 +10,7 @@ import ProductController from '../controllers/ProductController'
 const productController = new ProductController()
 
 productRouter.get('/', ensureAuthenticad, productController.index)
+productRouter.delete('/:id', ensureAuthenticad, productController.delete)
 productRouter.get('/search', ensureAuthenticad, productController.show)
 productRouter.post(
   '/',
