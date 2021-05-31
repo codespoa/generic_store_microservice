@@ -56,7 +56,7 @@ export default class ProductController implements Controller {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    let { code, page } = request.query
+    const { code, page } = request.query
     const { authorization } = request.headers
     const payload = {
       token: authorization,
