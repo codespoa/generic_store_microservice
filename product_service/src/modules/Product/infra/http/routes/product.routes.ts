@@ -15,12 +15,8 @@ const searchProductController = new SearchProductController()
 
 productRouter.get('/', ensureAuthenticad, productController.index)
 productRouter.delete('/:id', ensureAuthenticad, productController.delete)
-productRouter.get('/search', ensureAuthenticad, productController.show)
-productRouter.get(
-  '/:id',
-  ensureAuthenticad,
-  searchProductController.searchByCode
-)
+productRouter.get('/search', ensureAuthenticad, searchProductController.search)
+productRouter.get('/:id', ensureAuthenticad, productController.show)
 productRouter.post(
   '/',
   ensureAuthenticad,
