@@ -7,4 +7,5 @@ export type IUpdateProductDTO = {
   store: string
   product_code?: string
   token?: string
+  available?: boolean
 }

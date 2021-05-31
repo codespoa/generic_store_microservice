@@ -15,6 +15,7 @@ export class CreateProductService implements Service {
     store,
     product_code,
     token,
+    available,
   }: ICreateProductDTO): Promise<IReturnProductDTO> {
     if (!token || token === 'Bearer')
       throw new AppError(
@@ -52,6 +53,7 @@ export class CreateProductService implements Service {
       seller,
       store,
       product_code,
+      available,
     })
 
     return createProduct

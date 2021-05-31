@@ -7,4 +7,5 @@ export default yup.object().shape({
   seller: yup.string().required(),
   store: yup.string().required(),
   product_code: yup.string().required(),
+  available: yup.boolean(),
 })

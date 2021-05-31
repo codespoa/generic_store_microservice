@@ -6,4 +6,5 @@ export type ICreateProductDTO = {
   store: string
   product_code: string
   token?: string
+  available?: boolean
 }

@@ -9,6 +9,7 @@ const Product: Schema = new Schema(
     seller: { type: String, required: true },
     store: { type: String, required: true },
     product_code: { type: String, required: true },
+    available: { type: Boolean, required: true, default: true },
   },
   { timestamps: true, selectPopulatedPaths: true }
 )

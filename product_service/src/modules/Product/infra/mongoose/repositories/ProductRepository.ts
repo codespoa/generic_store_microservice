@@ -17,7 +17,8 @@ class ProductRepository implements IProductRepository {
     return allProducts
   }
   public async create(payload: ICreateProductDTO): Promise<IReturnProductDTO> {
-    const { name, value, weight, product_code, seller, store } = payload
+    const { name, value, weight, product_code, seller, store, available } =
+      payload
 
     const createAProduct = await Product.create({
       name,
@@ -26,6 +27,7 @@ class ProductRepository implements IProductRepository {
       product_code,
       seller,
       store,
+      available,
     })
 
     return createAProduct

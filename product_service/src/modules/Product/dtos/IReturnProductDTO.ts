@@ -7,4 +7,5 @@ export type IReturnProductDTO = {
   store: string
   product_code: string
   token?: string
+  available: boolean
 }

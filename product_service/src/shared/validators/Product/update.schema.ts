@@ -6,4 +6,5 @@ export default yup.object().shape({
   weight: yup.number(),
   seller: yup.string(),
   store: yup.string(),
+  available: yup.boolean(),
 })

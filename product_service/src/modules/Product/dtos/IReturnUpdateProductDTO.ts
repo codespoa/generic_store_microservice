@@ -5,4 +5,5 @@ export type IReturnUpdateProductDTO = {
   weight: Number
   seller: string
   store: string
+  available: boolean
 }
