@@ -2,7 +2,7 @@ import { AppError } from '@shared/error'
 import IProductRepository from '@modules/Product/repositories/IProductRepository'
 import { IReturnProductDTO } from '@modules/Product/dtos'
 import Service from '@shared/protocols/Service'
-import JwtDecode from '@shared/utils/JwtDecode'
+import { JwtDecode, RoleCheck } from '@shared/utils'
 
 export class ShowProductService implements Service {
   constructor(private readonly productRepository: IProductRepository) {}
@@ -23,7 +23,10 @@ export class ShowProductService implements Service {
       subject: { user_role },
     } = decoder.decode(auth)
 
-    if (user_role !== 'gerente')
+    const roleCheck = new RoleCheck()
+    const checkRole = roleCheck.verify(user_role, ['gerente'])
+
+    if (!checkRole)
       throw new AppError(
         "You don't have permission to access this feature",
         403
