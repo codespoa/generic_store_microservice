@@ -6,12 +6,21 @@ import ensureAuthenticad from '@modules/Product/infra/http/middleware/ensureAuth
 
 const productRouter = Router()
 
-import ProductController from '../controllers/ProductController'
+import {
+  ProductController,
+  SearchProductController,
+} from '@modules/Product/infra/http/controllers'
 const productController = new ProductController()
+const searchProductController = new SearchProductController()
 
 productRouter.get('/', ensureAuthenticad, productController.index)
 productRouter.delete('/:id', ensureAuthenticad, productController.delete)
 productRouter.get('/search', ensureAuthenticad, productController.show)
+productRouter.get(
+  '/:id',
+  ensureAuthenticad,
+  searchProductController.searchByCode
+)
 productRouter.post(
   '/',
   ensureAuthenticad,
