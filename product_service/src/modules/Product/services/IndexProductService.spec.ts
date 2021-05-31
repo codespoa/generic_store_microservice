@@ -7,7 +7,7 @@ describe('Index Product', () => {
     const fakeProductRepository = new FakesProductRepository()
     const createProduct = new CreateProductService(fakeProductRepository)
 
-    const product = await createProduct.execute({
+    await createProduct.execute({
       name: 'any_name',
       value: 1000,
       weight: 100,
