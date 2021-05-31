@@ -76,6 +76,14 @@ class FakesProductRepository implements IProductRepository {
 
     return findProduct
   }
+
+  public async delete(id: string): Promise<void> {
+    const findIndex = this.products.findIndex(
+      (findProduct) => findProduct._id === id
+    )
+
+    delete this.products[findIndex]
+  }
 }
 
 export default FakesProductRepository
