@@ -17,11 +17,13 @@ describe('Search Product', () => {
       store: 'any_store',
       product_code: 'any_product_code',
       token: tokenExample.token_example_success,
+      available: true,
     })
 
     const payload = {
       token: tokenExample.token_example_success,
       code: create.product_code,
+      available: create.available,
       page: '1',
     }
 
@@ -30,32 +32,22 @@ describe('Search Product', () => {
     expect(show).toBeTruthy()
   })
 
-  it('should be not show if product not found', async () => {
+  it('should be not show a product if not found', async () => {
     const fakeProductRepository = new FakesProductRepository()
-    const createProduct = new CreateProductService(fakeProductRepository)
     const searchProduct = new SearchProductService(fakeProductRepository)
-
-    await createProduct.execute({
-      name: 'any_name',
-      value: 1000,
-      weight: 100,
-      seller: 'any_seller',
-      store: 'any_store',
-      product_code: 'any_product_code',
-      token: tokenExample.token_example_success,
-    })
 
     const payload = {
       token: tokenExample.token_example_success,
       code: 'wrong_code',
       page: '1',
+      available: false,
     }
 
-    const show = searchProduct.execute(payload)
+    const search = await searchProduct.execute(payload)
 
-    expect(show).rejects.toBeInstanceOf(AppError)
+    expect(search).toEqual({})
 
-    return createProduct
+    return search
   })
 
   it('should verify if role is not gerente', async () => {
@@ -63,7 +55,7 @@ describe('Search Product', () => {
     const createProduct = new CreateProductService(fakeProductRepository)
     const searchProduct = new SearchProductService(fakeProductRepository)
 
-    await createProduct.execute({
+    const create = await createProduct.execute({
       name: 'any_name',
       value: 1000,
       weight: 100,
@@ -75,13 +67,13 @@ describe('Search Product', () => {
 
     const payload = {
       token: tokenExample.token_example_fail,
-      code: 'wrong_code',
+      code: create.product_code,
       page: '1',
     }
 
-    const update = searchProduct.execute(payload)
+    const search = searchProduct.execute(payload)
 
-    expect(update).rejects.toBeInstanceOf(AppError)
+    expect(search).rejects.toBeInstanceOf(AppError)
   })
 
   it('should verify if role is not provider', async () => {
@@ -104,8 +96,8 @@ describe('Search Product', () => {
       page: '1',
     }
 
-    const update = searchProduct.execute(payload)
+    const search = searchProduct.execute(payload)
 
-    expect(update).rejects.toBeInstanceOf(AppError)
+    expect(search).rejects.toBeInstanceOf(AppError)
   })
 })
