@@ -5,6 +5,7 @@ import {
   IndexProductService,
   UpdateProductService,
   ShowProductService,
+  DeleteProductService,
 } from '@modules/Product/services'
 import ProductRepository from '@modules/Product/infra/mongoose/repositories/ProductRepository'
 import { Controller } from '@shared/protocols'
