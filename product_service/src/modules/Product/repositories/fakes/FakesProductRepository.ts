@@ -15,6 +15,7 @@ export interface IProductInterface {
   seller: string
   store: string
   product_code: string
+  available: boolean
 }
 
 class FakesProductRepository implements IProductRepository {
@@ -83,6 +84,20 @@ class FakesProductRepository implements IProductRepository {
     )
 
     delete this.products[findIndex]
+  }
+
+  public async findProduct(payload: any): Promise<any> {
+    const findCode = this.products.filter(
+      (findProduct) => findProduct.product_code === payload.code
+    )
+
+    const findAvailable = this.products.filter(
+      (findProduct) => findProduct.available === payload.available
+    )
+
+    const t = Object.assign({}, findCode, findAvailable)
+
+    return new Promise((resolve) => resolve(t))
   }
 }
 
