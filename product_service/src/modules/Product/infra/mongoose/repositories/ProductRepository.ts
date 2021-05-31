@@ -67,6 +67,15 @@ class ProductRepository implements IProductRepository {
   public async delete(id: string): Promise<void> {
     await Product.findByIdAndDelete(id)
   }
+
+  public async findProduct(payload: any): Promise<any> {
+    return await Product.paginate(
+      {
+        $or: [{ product_code: payload.code }, { available: payload.available }],
+      },
+      { limit: 15, page: payload.page }
+    )
+  }
 }
 
 export default ProductRepository
