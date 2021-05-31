@@ -61,6 +61,10 @@ class ProductRepository implements IProductRepository {
       { limit: 15, page: payload.page }
     )
   }
+
+  public async delete(id: string): Promise<void> {
+    await Product.findByIdAndDelete(id)
+  }
 }
 
 export default ProductRepository
