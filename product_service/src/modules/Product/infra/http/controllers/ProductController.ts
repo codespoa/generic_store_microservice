@@ -10,7 +10,7 @@ import {
 import ProductRepository from '@modules/Product/infra/mongoose/repositories/ProductRepository'
 import { Controller } from '@shared/protocols'
 
-export default class ProductController implements Controller {
+export class ProductController implements Controller {
   public async index(request: Request, response: Response): Promise<any> {
     let { page } = request.query
 

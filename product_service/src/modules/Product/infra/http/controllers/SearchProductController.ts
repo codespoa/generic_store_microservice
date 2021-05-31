@@ -1,23 +1,22 @@
 import { Request, Response } from 'express'
 
-import { SearchProductService } from '@modules/Product/services'
+import { ShowProductService } from '@modules/Product/services'
 import ProductRepository from '@modules/Product/infra/mongoose/repositories/ProductRepository'
 
-export default class SearchProductController {
+export class SearchProductController {
   public async searchByCode(
     request: Request,
     response: Response
   ): Promise<Response> {
-    const { code, page } = request.query
+    const { id } = request.params
     const { authorization } = request.headers
     const payload = {
       token: authorization,
-      code,
-      page,
+      id,
     }
 
     const productRepository = new ProductRepository()
-    const searchProduct = await new SearchProductService(
+    const searchProduct = await new ShowProductService(
       productRepository
     ).execute(payload)
 
