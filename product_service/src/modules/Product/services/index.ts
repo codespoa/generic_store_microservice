@@ -1,5 +1,5 @@
 export * from './CreateProductService'
 export * from './IndexProductService'
 export * from './UpdateProductService'
-export * from './ShowProductService'
+export * from './SearchProductService'
 export * from './DeleteProductService'
