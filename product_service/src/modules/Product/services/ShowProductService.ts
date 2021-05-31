@@ -28,7 +28,7 @@ export class ShowProductService implements Service {
 
     if (!checkRole)
       throw new AppError(
-        "You don't have permission to access this features",
+        "You don't have permission to access this feature",
         403
       )
 
