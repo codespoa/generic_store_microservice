@@ -1,0 +1,236 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "example": "Microservice Users",
+    "version": "1.0.5",
+    "title": "Swagger Generic Store Users",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "generic_store@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "generic.swagger.io",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "user",
+      "example": "Everything about your users"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Add a new user to the store",
+        "example": "",
+        "operationId": "addUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "example": "User object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "example": "Invalids fields"
+          },
+          "201": {
+            "example": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserReturn"
+            }
+          }
+        },
+        "security": [
+          {
+            "generic_user_auth": ["write:users", "read:users"]
+          }
+        ]
+      },
+      "get": {
+        "tags": ["user"],
+        "summary": "Add a new user to the store",
+        "example": "",
+        "operationId": "addUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "403": {
+            "example": "You don't have permission to access this feature"
+          },
+          "200": {
+            "example": "successful operation",
+            "type": "array",
+            "schema": {
+              "$ref": "#/definitions/UserReturn"
+            }
+          }
+        },
+        "security": [
+          {
+            "generic_user_auth": ["write:users", "read:users"]
+          }
+        ]
+      }
+    },
+    "/user/{userId}": {
+      "get": {
+        "tags": ["user"],
+        "summary": "Find user by ID",
+        "example": "Returns a single user",
+        "operationId": "getUserById",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "example": "ID of user to return",
+            "required": true,
+            "type": "string",
+            "format": "uui"
+          }
+        ],
+        "responses": {
+          "200": {
+            "example": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserReturn"
+            }
+          },
+          "400": {
+            "example": "Invalid fields"
+          },
+          "404": {
+            "example": "User not found"
+          },
+          "403": {
+            "example": "You don't have permission to access this feature"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ApiResponseCreateUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "_id": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "required": ["name", "email", "password", "role"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Goku"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "121j3h27sd@ds"
+        },
+        "role": {
+          "type": "string",
+          "example": "cliente",
+          "enum": ["cliente", "supervisor"]
+        }
+      }
+    },
+    "UserUpdate": {
+      "type": "object",
+      "required": ["name", "email", "password", "role"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Goku"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "djshjd23432"
+        },
+        "role": {
+          "type": "string",
+          "example": "cliente",
+          "enum": ["cliente", "supervisor"]
+        }
+      }
+    },
+    "UserReturn": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "60b55fe68c5d2a0056bfd329"
+        },
+        "name": {
+          "type": "string",
+          "example": "Goku"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "@34sdijji2"
+        },
+        "role": {
+          "type": "string",
+          "example": "cliente",
+          "enum": ["cliente", "supervisor"]
+        },
+        "createdAt": {
+          "type": "datetime",
+          "example": "2021-05-31T22:15:02.463Z"
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "example": "2021-05-31T22:15:02.463Z"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "example": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
