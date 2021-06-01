@@ -3,6 +3,7 @@ import logger from 'morgan';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import 'dotenv/config';
 
 import { jsonConfig } from './config/server.config';
 
@@ -42,9 +43,9 @@ import { jsonConfig } from './config/server.config';
       );
     });
 
-    app.listen(config.port, () => {
+    app.listen(process.env.APP_PORT, () => {
       console.log(
-        `Application ${nameApplication} is running on host ${hostApplication} on port ${config.port}`,
+        `Application ${nameApplication} is running on host ${hostApplication} on port ${process.env.APP_PORT}`,
       );
     });
   } catch (error) {
