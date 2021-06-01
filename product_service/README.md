@@ -11,6 +11,7 @@
 - [Express]
 - [Jest]
 - [ESlint]
+- [Swagger]
 
 ## Installation
 
