@@ -43,3 +43,5 @@ Feito com ❤️ por Eduardo Alves 👋
 #### Run services
 
 ##### to run the services, go into the folder for each of them and take a look at README.md
+
+<p>To run the entire application, you can run the user service, then run the product service, and then the gateway service, you can only use the gateway url, respecting the subroutes of the other applications, you can check this inside of the gateway service, in the config.yml file</p>
