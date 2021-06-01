@@ -13,10 +13,12 @@ import { Controller } from '@shared/protocols'
 export class ProductController implements Controller {
   public async index(request: Request, response: Response): Promise<any> {
     let { page } = request.query
+    const { authorization } = request.headers
 
     const payload = {
       limit: 15,
       page,
+      token: authorization,
     }
 
     const productRepository = new ProductRepository()
