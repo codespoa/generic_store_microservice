@@ -1,11 +1,6 @@
-<img src="./book_live.png" style="display: block;margin-left: auto;margin-right: auto;width:80%" alt="Book Live"></img>
+<h1 align="center">🚀 Generic Store User Service 🚀</h1>
 
-<h1 align="center">🚀 Book Live 🚀</h1>
-
-<h5 align="center">
-Hi I'am Goku</h5>
-
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/codespoa/book-live)
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/codespoa/generic_store_microservice)
 
 ### Tech
 
@@ -15,6 +10,8 @@ Hi I'am Goku</h5>
 - [Docker]
 - [Express]
 - [Jest]
+- [ESlint]
+- [Swagger]
 
 ## Installation
 
@@ -27,8 +24,8 @@ You need have Docker and docker-compose installed in ir system, if you don't hav
 #### Install all dependencies
 
 ```sh
-$ git clone https://github.com/codespoa/book-live
-$ cd book-live
+$ git clone https://github.com/codespoa/generic_store_microservice
+$ cd generic_store_microservice/user_service
 $ yarn || npm install
 
 ```
@@ -47,183 +44,24 @@ $ yarn docker:up || npm run docker:up
 
 with your container running, now go to <a href="http://localhost:${PORT}" target="_blank">http://localhost:${PORT}</a>
 
-#Functionalities
+#### Testing
 
-### Users
-
-[x] Criar usuario.
-[x] Listar os usuários da biblioteca.
-[x] Autenticar usuário
-
-### Books
-
-[x] Listar todos livros disponíveis
-[x] Retornar dados de um livro
-[x] Alugar um livro
-[x] Salvar, Editar e Excluir.
-[x] Usuário pode alugar um livro
-
-# Documentation
-
-## Routes
-
-### Create User
-
-#####(POST) <a href="http://localhost:${PORT}/user" target="_blank">/user</a>
-return user create
-
-###### Data in body
-
-| Field    | Info              |
-| -------- | ----------------- |
-| name     | Required - String |
-| email    | Required - String |
-| password | Required - String |
-
-```
-{
-	"name": "jonh",
-	"email": "jonh@teste.com",
-	"password": "123456",
-}
+```sh
+$ yarn test | npm run test
 ```
 
----
+#### Code Linters
 
-### Login User
+- This project use two different code linters and a another extension to the IDE, that is...
 
-#####(POST) <a href="http://localhost:${PORT}/session" target="_blank">/session</a>
-return user and token
+##### Eslint
 
-###### Data in body
+- Or EcmaScriptLint, is the linter responsible to check problems in the syntax and return errors, your configurations are shared and used by others linters
 
-| Field    | Info              |
-| -------- | ----------------- |
-| name     | Required - String |
-| password | Required - String |
+##### Prettier
 
-```
-{
-	"email": "jonh@teste.com",
-	"password": "123456",
-}
-```
+- This linter is used only for check the code style, they don't will check the syntax, just find a way to do the code more legible and have a integration with eslint
 
----
+##### Editor Config
 
-### List all User
-
-#####(GET) <a href="http://localhost:${PORT}/user" target="_blank">/user</a>
-return all user
-
-###### No body
-
----
-
-### Create Book
-
-#####(POST) <a href="http://localhost:${PORT}/book" target="_blank">/book</a>
-return an book create
-
-###### Data in body
-
-| Field      | Info              |
-| ---------- | ----------------- |
-| name       | Required - String |
-| author     | Required - String |
-| value      | Required - Number |
-| isbn       | Required - Number |
-| publishing | Required - String |
-
-```
-{
-	"name": "O livro",
-  "author": "Goku",
-  "value": 12.90,
-  "isbn": 3443521,
-  "publishing": "Autora da Luz"
-}
-```
-
----
-
-### List all Books
-
-#####(GET) <a href="http://localhost:${PORT}/book" target="_blank">/book</a>
-return all book
-
-###### No body
-
----
-
-### Show a Books
-
-#####(GET) <a href="http://localhost:${PORT}/book/:isbn" target="_blank">/book/:isbn</a>
-show one book
-
-###### No body
-
----
-
-### Rent a Book
-
-#####(PATCH) <a href="http://localhost:${PORT}/book/rented" target="_blank">/book/rented</a>
-change status book
-
-this is for the user to be able to rent a book, passing the user's email, the book's isbn and rented as true, the book is rented by the user, and can no longer be deleted or edited until sending the same properties and the rented as false
-
-###### Data in body
-
-| Field      | Info               |
-| ---------- | ------------------ |
-| isbn       | Required - Number  |
-| user_email | Required - String  |
-| rented     | Required - Boolean |
-
-```
-{
-	"isbn": 12313,
-	"user_email": "jonh@teste.com",
-	"rented": false
-}
-```
-
----
-
-### Delete Book
-
-#####(DELETE) <a href="http://localhost:${PORT}/book/:isbn" target="_blank">/book/:isbn</a>
-delete one book and return status 204 no content
-
-###### No body
-
----
-
-### Search a Book
-
-#####(POST) <a href="http://localhost:${PORT}/book/search" target="_blank">/book/search</a>
-search one or more books and return book
-
-###### Data in Body
-
-| Field      | Info              |
-| ---------- | ----------------- |
-| name       | Array ["String"]  |
-| author     | Array ["String"]  |
-| value      | Array ["Number"]  |
-| isbn       | Array ["Number"]  |
-| publishing | Array ["String"]  |
-| rented     | Array ["Boolean"] |
-
-```
-{
-	"name": ["O livro"]
-	"author": ["Eduardo"],
-	"value": [100, 12]
-	"isbn": [632736]
-	"publishing": ["O livro"]
-	"rented": [true]
-}
-```
-
----
+- That isn't a linter, just a extension to share some configs between other editors, like the format of the end of lines, identation with spaces or tabs, etc...

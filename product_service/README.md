@@ -1,6 +1,6 @@
 <h1 align="center">🚀 Generic Store Product Service 🚀</h1>
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/codespoa/generic_store)
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/codespoa/generic_store_microservice)
 
 ### Tech
 
@@ -24,8 +24,8 @@ You need have Docker and docker-compose installed in ir system, if you don't hav
 #### Install all dependencies
 
 ```sh
-$ git clone https://github.com/codespoa/generic_store
-$ cd generic_store/product_service
+$ git clone https://github.com/codespoa/generic_store_microservice
+$ cd generic_store_microservice/product_service
 $ yarn || npm install
 
 ```
