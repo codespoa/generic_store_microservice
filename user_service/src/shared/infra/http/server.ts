@@ -9,11 +9,15 @@ import routes from '@shared/infra/http/routes/index'
 import mongoConfig from '@config/mongo'
 import { bodyParser } from '@shared/middlewares/BodyParser'
 import { contentType } from '@shared/middlewares/ContentType'
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from '@shared/docs/swagger.json'
+import options from '@shared/docs/options'
 
 const app = express()
 app.use(cors())
 
 app.use(bodyParser)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options))
 app.use(contentType)
 app.use(routes)
 
