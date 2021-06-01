@@ -43,11 +43,9 @@ describe('Search Product', () => {
       available: false,
     }
 
-    const search = await searchProduct.execute(payload)
+    const search = searchProduct.execute(payload)
 
-    expect(search).toEqual({})
-
-    return search
+    expect(search).rejects.toBeInstanceOf(AppError)
   })
 
   it('should verify if role is not gerente', async () => {
