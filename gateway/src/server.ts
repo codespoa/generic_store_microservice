@@ -2,7 +2,7 @@ import express from 'express';
 import logger from 'morgan';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import httpProxy from 'express-http-proxy';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 import { jsonConfig } from './config/server.config';
 
@@ -33,7 +33,13 @@ import { jsonConfig } from './config/server.config';
     });
 
     services.forEach(({ nameRoute, url }) => {
-      app.use(`/${nameRoute}`, httpProxy(url, { timeout: 3000 }));
+      app.use(
+        `/${nameRoute}`,
+        createProxyMiddleware({
+          target: `${url}/${nameRoute}`,
+          changeOrigin: true,
+        }),
+      );
     });
 
     app.listen(config.port, () => {

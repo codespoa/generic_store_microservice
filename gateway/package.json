@@ -19,6 +19,7 @@
     "express-http-proxy": "^1.6.0",
     "helmet": "^3.23.1",
     "http-proxy": "^1.18.1",
+    "http-proxy-middleware": "^2.0.0",
     "js-yaml": "^3.14.0",
     "morgan": "^1.10.0"
   },

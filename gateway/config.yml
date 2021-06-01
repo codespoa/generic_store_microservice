@@ -10,7 +10,7 @@ security:
   enabledHelmet: true
 
 services:
-  - nameRoute: products
-    url: http://localhost:3000
-  - nameRoute: users
+  - nameRoute: user
     url: http://localhost:4000
+  - nameRoute: product
+    url: http://localhost:3000

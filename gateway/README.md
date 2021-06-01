@@ -23,4 +23,6 @@ Rename .env.example for .env and complete the variables
 $ yarn dev || npm run dev
 ```
 
+Your ports at all services is configured in config.yml - check please
+
 Running at <a href="http://localhost:${PORT}" target="_blank">http://localhost:${PORT}</a>

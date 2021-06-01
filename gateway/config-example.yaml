@@ -2,7 +2,7 @@ nameApplication: API Gateway
 hostApplication: http://localhost
 
 config:
-  port: 3333
+  port: 5000
   enabledMorgan: true
 
 security:
@@ -10,7 +10,7 @@ security:
   enabledHelmet: true
 
 services:
-  - nameRoute: users
+  - nameRoute: user
     url: http://localhost:4000
-  - nameRoute: products
+  - nameRoute: product
     url: http://localhost:3000
