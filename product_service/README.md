@@ -44,6 +44,10 @@ $ yarn docker:up || npm run docker:up
 
 with your container running, now go to <a href="http://localhost:${PORT}" target="_blank">http://localhost:${PORT}</a>
 
+#### Docs
+
+the project documentation can be found at <a href="http://localhost:${PORT}/api-docs" target="_blank">http://localhost:${PORT}/api-docs</a>
+
 #### Testing
 
 ```sh
