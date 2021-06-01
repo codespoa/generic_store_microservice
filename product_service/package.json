@@ -1,7 +1,7 @@
 {
   "name": "generic_store",
   "version": "1.0.0-alpha",
-  "main": "src/index.js",
+  "main": "src/shared/infra/http/server.ts",
   "author": "Eduardo Alves <caaduh4@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -9,7 +9,8 @@
     "start": "ts-node -r tsconfig-paths/register src/shared/infra/http/server.ts",
     "build": "tsc",
     "docker:up": "docker-compose up -d --build db && docker-compose up --build app",
-    "test": "jest"
+    "test": "jest",
+    "swagger-autogen": "node src/shared/infra/http/swagger.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -27,6 +28,8 @@
     "mongoose-paginate-v2": "^1.3.17",
     "reflect-metadata": "^0.1.13",
     "require-dir": "^1.2.0",
+    "swagger-typescript-api": "^9.1.0",
+    "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.1",
     "uuidv4": "^6.2.2",
     "v4": "^0.0.1",
@@ -43,6 +46,7 @@
     "@types/mongodb": "^3.6.12",
     "@types/mongoose": "^5.10.5",
     "@types/mongoose-paginate-v2": "^1.3.9",
+    "@types/swagger-ui-express": "^4.1.2",
     "@types/yup": "^0.29.11",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",

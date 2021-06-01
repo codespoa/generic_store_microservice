@@ -1,0 +1,390 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Microservice Products",
+    "version": "1.0.5",
+    "title": "Swagger Generic Store Products",
+    "termsOfService": "http://${HOST}/terms/",
+    "contact": {
+      "email": "generic_store@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": ["http://localhost"],
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "product",
+      "description": "Everything about your products"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/product": {
+      "post": {
+        "tags": ["product"],
+        "summary": "Add a new product to the store",
+        "description": "",
+        "operationId": "addProduct",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Product object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalids fields"
+          },
+          "403": {
+            "description": "You don't have permission to access this feature"
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/ProductReturn"
+            }
+          }
+        },
+        "security": [
+          {
+            "generic_products_auth": ["write:products", "read:products"]
+          }
+        ]
+      },
+      "put": {
+        "tags": ["product"],
+        "summary": "Update an existing pet",
+        "description": "",
+        "operationId": "updateProduct",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "product object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalids fields"
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "403": {
+            "description": "You don't have permission to access this feature"
+          },
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ProductReturn"
+            }
+          }
+        },
+        "security": [
+          {
+            "generic_products_auth": ["write:products", "read:products"]
+          }
+        ]
+      }
+    },
+    "/product/search": {
+      "get": {
+        "tags": ["product"],
+        "summary": "Finds products by code or available",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "available",
+            "in": "query",
+            "description": "Available values that need to be considered for filter",
+            "required": false,
+            "type": "boolean",
+            "items": {
+              "type": "string",
+              "enum": ["true", "false"],
+              "default": "true"
+            }
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "description": "Code values that need to be considered for filter",
+            "required": false,
+            "type": "string",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductReturn"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "403": {
+            "description": "You don't have permission to access this feature"
+          }
+        },
+        "security": [
+          {
+            "generic_products_auth": ["write:products", "read:products"]
+          }
+        ]
+      }
+    },
+    "/product/{productId}": {
+      "get": {
+        "tags": ["product"],
+        "summary": "Find product by ID",
+        "description": "Returns a single product",
+        "operationId": "getProductById",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product to return",
+            "required": true,
+            "type": "string",
+            "format": "uui"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ProductReturn"
+            }
+          },
+          "400": {
+            "description": "Invalid fields"
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "403": {
+            "description": "You don't have permission to access this feature"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["product"],
+        "summary": "Deletes a product",
+        "description": "",
+        "operationId": "deleteProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Product id to delete",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "403": {
+            "description": "You don't have permission to access this feature"
+          }
+        },
+        "security": [
+          {
+            "generic_products_auth": ["write:products", "read:products"]
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ApiResponseCreateProduct": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "store": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "integer"
+        },
+        "product_code": {
+          "type": "string"
+        },
+        "seller": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "_id": {
+          "type": "string"
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "required": [
+        "name",
+        "store",
+        "weight",
+        "product_code",
+        "seller",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Goku"
+        },
+        "store": {
+          "type": "string",
+          "example": "Loja do Sul"
+        },
+        "weight": {
+          "type": "integer",
+          "example": 1320
+        },
+        "product_code": {
+          "type": "string",
+          "example": "Df34fs3"
+        },
+        "seller": {
+          "type": "string",
+          "example": "Eduardo Alves"
+        },
+        "value": {
+          "type": "integer",
+          "example": 102.9
+        },
+        "available": {
+          "type": "boolean",
+          "example": true,
+          "enum": [true, false]
+        }
+      }
+    },
+    "ProductUpdate": {
+      "type": "object",
+      "required": ["name", "store", "weight", "seller", "value"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Goku"
+        },
+        "store": {
+          "type": "string",
+          "example": "Loja do Sul"
+        },
+        "weight": {
+          "type": "integer",
+          "example": 1320
+        },
+        "seller": {
+          "type": "string",
+          "example": "Eduardo Alves"
+        },
+        "value": {
+          "type": "integer",
+          "example": 102.9
+        },
+        "available": {
+          "type": "boolean",
+          "example": true,
+          "enum": [true, false]
+        }
+      }
+    },
+    "ProductReturn": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "60b55fe68c5d2a0056bfd329"
+        },
+        "name": {
+          "type": "string",
+          "example": "Goku"
+        },
+        "store": {
+          "type": "string",
+          "example": "Loja do Sul"
+        },
+        "weight": {
+          "type": "integer",
+          "example": 1320
+        },
+        "product_code": {
+          "type": "string",
+          "example": "Df34fs3"
+        },
+        "seller": {
+          "type": "string",
+          "example": "Eduardo Alves"
+        },
+        "value": {
+          "type": "integer",
+          "example": 102.9
+        },
+        "available": {
+          "type": "boolean",
+          "example": true,
+          "enum": [true, false]
+        },
+        "createdAt": {
+          "type": "datetime",
+          "example": "2021-05-31T22:15:02.463Z"
+        },
+        "updatedAt": {
+          "type": "datetime",
+          "example": "2021-05-31T22:15:02.463Z"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

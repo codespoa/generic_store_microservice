@@ -3,6 +3,9 @@ import 'dotenv/config'
 import 'express-async-errors'
 import cors from 'cors'
 import express, { Request, Response, NextFunction } from 'express'
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from '@shared/docs/swagger.json'
+import options from '@shared/docs/options'
 
 import {
   MongoHelper,
@@ -14,9 +17,12 @@ import {
 } from '.'
 
 const app = express()
-app.use(cors())
 
+app.use(cors())
 app.use(bodyParser)
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options))
+
 app.use(contentType)
 app.use(routes)
 
